@@ -10,7 +10,7 @@ public class App {
        System.out.println("app starting...");
        Scanner s = new Scanner (System.in);
 
-        ArrayList<Question> ListOfQuestions = new ArrayList<>();
+        ArrayList <Question> ListOfQuestions = new ArrayList<>();
         ArrayList <Node> Characters = new ArrayList<>();
        
         try{
@@ -32,7 +32,7 @@ public class App {
                 Random rand = new Random();
                 int n = rand.nextInt(Characters.size()) + 0;
                 Node guess = Characters.get(n);
-               
+                System.out.println("current guess: " + guess.name);
                 boolean y = Collections.disjoint(guess.codes,yeses); //returns false if there are same elements between the two lists
                 boolean x = Collections.disjoint(guess.codes,noes); //returns true if there are no same elements between the two lists
                 
@@ -40,14 +40,14 @@ public class App {
                     for (int i = 1; i < guess.codes.size(); i++) {
                         int k = i;
                         String questionIdx = "";
-                        int j = 0;
+
                         boolean questionFound = false;
                             while(!questionFound && k < guess.codes.size()){
                                 questionIdx = (guess.codes).get(k);
-                                    System.out.println("questionIdx = " + questionIdx);
-                                    for (j = 0; j < ListOfQuestions.size(); j++) { 
+                                    //System.out.println("questionIdx = " + questionIdx);
+                                    for (int j = 0; j < ListOfQuestions.size(); j++) { 
                                         if (questionIdx.equals(ListOfQuestions.get(j).index)){ //prints question
-                                            System.out.println("prints question...");
+                                            //System.out.println("prints question...");
                                             System.out.println(ListOfQuestions.get(j).q);
                                             ListOfQuestions.remove(j);
                                             questionFound = true;
@@ -74,14 +74,15 @@ public class App {
                                     answer = s.next();
                                 }
 
-                            // if (Characters.size() == 1) {
-                            //     found = true;
-                            //     System.out.println("\n1. YOU ARE THINKING OF: " + guess.name);
-                            //     Characters.clear();
-                            //     break;
-                            // }
+                            System.out.println("Character SIZE: " + Characters.size());
+                            if (Characters.size() == 1) {
+                                found = true;
+                                System.out.println("\n1. YOU ARE THINKING OF: " + guess.name);
+                                Characters.clear();
+                                break;
+                            }
                             
-                            if(k >= guess.codes.size()){
+                            if(i >= guess.codes.size()){
                                 found = true;
                                 System.out.println("\n2. YOU ARE THINKING OF: " + guess.name);
                                 Characters.clear();
@@ -96,12 +97,10 @@ public class App {
                     } 
                 }
                 else if(y == false && x == false) {
-                    Characters.remove(n);
-                }
+                    Characters.remove(n);}
             }
                 if(Characters.isEmpty()){
                     found = true;
-                    System.out.println("no more characters");
                     break;
                 }
         }
