@@ -28,7 +28,4 @@ public class FileToQuestions {
         //     }
         return listOfQuestions;
     } 
-    public static void main(String[] args) throws IOException {
-        convertFileToQuestions();
-    }
 }
