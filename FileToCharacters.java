@@ -35,7 +35,7 @@ public class FileToCharacters {
         
         return characters;
     }
-    public static void main(String[] args) throws IOException {
-        convertFileToCharacters();
-    }
+    // public static void main(String[] args) throws IOException {
+    //     convertFileToCharacters();
+    // }
 }

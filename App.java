@@ -26,9 +26,7 @@ public class App {
         yeses.add("P");
 
         int ctr = 0;
-        while(!found){ //while the person is not yet found
-
-            while(!(Characters.isEmpty())){
+            while(Characters.size()>1 && !found){
                 Random rand = new Random();
                 int n = rand.nextInt(Characters.size()) + 0;
                 Node guess = Characters.get(n);
@@ -83,7 +81,7 @@ public class App {
                             
                             if(k >= guess.codes.size()){
                                 found = true;
-                                System.out.println("\n2. YOU ARE THINKING OF: " + guess.name);
+                                System.out.println("\nYOU ARE THINKING OF: " + guess.name);
                                 Characters.clear();
                                 break;
                             }
@@ -99,11 +97,14 @@ public class App {
                     Characters.remove(n);
                 }
             }
-                if(Characters.isEmpty()){
-                    found = true;
-                    System.out.println("no more characters");
-                    break;
-                }
+                // if(Characters.isEmpty()){
+                //     found = true;
+                //     System.out.println("no more characters");
+                //     break;
+                // }
+            if (Characters.size() == 1){
+                found = true;
+                System.out.println ("YOU ARE THINKING OF: " + Characters.get(0));
+            }
         }
-    }
 }
