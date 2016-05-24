@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,9 +44,10 @@ public class App {
                         boolean questionFound = false;
                             while(!questionFound && k < guess.codes.size()){
                                 questionIdx = (guess.codes).get(k);
-                              
-                                    for (j = 0; j < ListOfQuestions.size(); j++) {
-                                        if (questionIdx.equals(ListOfQuestions.get(j).index)){
+                                    System.out.println("questionIdx = " + questionIdx);
+                                    for (j = 0; j < ListOfQuestions.size(); j++) { 
+                                        if (questionIdx.equals(ListOfQuestions.get(j).index)){ //prints question
+                                            System.out.println("prints question...");
                                             System.out.println(ListOfQuestions.get(j).q);
                                             ListOfQuestions.remove(j);
                                             questionFound = true;
@@ -74,27 +71,39 @@ public class App {
                                 }
                                 else{
                                     System.out.println("Enter again");
-                                    String answer = s.next();
+                                    answer = s.next();
                                 }
+
+                            // if (Characters.size() == 1) {
+                            //     found = true;
+                            //     System.out.println("\n1. YOU ARE THINKING OF: " + guess.name);
+                            //     Characters.clear();
+                            //     break;
+                            // }
                             
                             if(k >= guess.codes.size()){
                                 found = true;
-                                System.out.println("\n1. YOU ARE THINKING OF: " + guess.name);
+                                System.out.println("\n2. YOU ARE THINKING OF: " + guess.name);
                                 Characters.clear();
                                 break;
                             }
                     }
                     if (noes.isEmpty()){
                         found = true;
-                        System.out.println("\n2. YOU ARE THINKING OF: " + guess.name);
+                        System.out.println("\n3. YOU ARE THINKING OF: " + guess.name);
                         Characters.clear();
                         break;
-                    }  
+                    } 
                 }
                 else if(y == false && x == false) {
                     Characters.remove(n);
                 }
             }
+                if(Characters.isEmpty()){
+                    found = true;
+                    System.out.println("no more characters");
+                    break;
+                }
         }
     }
 }
