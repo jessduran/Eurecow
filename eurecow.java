@@ -31,6 +31,7 @@ public class eurecow{
 
       			Node guessChara = guessCharacter();
       			System.out.println("Guessing a character..." + guessChara.name);
+      			
       			boolean y = Collections.disjoint(guessChara.codes,yesCodes); //returns false if there are same elements between the two lists
                 boolean x = Collections.disjoint(guessChara.codes,noCodes); //returns true if there are no same elements between the two lists
 
@@ -44,14 +45,20 @@ public class eurecow{
 	      					System.out.println("Looking for a question...");
 
 	      					String question = getQuestion(questIdx);
-	      					while(question.equals("none") && j < guessChara.codes.size()){
-	      						j++;
-	      						questIdx = (guessChara.codes).get(j);
-	      						question = getQuestion(questIdx);
+	      					while(question.equals("none")){
+	      						
+	      						if(j >= guessChara.codes.size()){
+	      							break;
+	      						}else{
+	      							j++;
+		      						questIdx = (guessChara.codes).get(j);
+		      						question = getQuestion(questIdx);
+	      						}
+	      						
 	      					}
 	      					System.out.println(question);
 	      					qFound = true;
-	      					j++;
+	      					//j++;
 	      				}
 	      					System.out.print("Enter answer: ");
 	      					String ans = scan.next();
@@ -59,6 +66,7 @@ public class eurecow{
 								yesCodes.add(questIdx);
 							}else if(ans.equals("no")){
 								noCodes.add(questIdx);
+
 								Characters.remove(n);
 								break;
 							}else if(ans.equals("idk")){
