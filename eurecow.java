@@ -30,55 +30,60 @@ public class eurecow{
       		while(!(Characters.isEmpty())){
 
       			Node guessChara = guessCharacter();
-      			System.out.println("Guessing a character..." + guessChara.name);
-      			
+
       			boolean y = Collections.disjoint(guessChara.codes,yesCodes); //returns false if there are same elements between the two lists
                 boolean x = Collections.disjoint(guessChara.codes,noCodes); //returns true if there are no same elements between the two lists
 
       			if(y == false && x == true){
-      				for (int i = 1, j = i; i < guessChara.codes.size(); i++) {
+      				for (int i = 1, j = i; i <= guessChara.codes.size()-1; i++) {
 	      				String questIdx = "";
 	      				boolean qFound = false;
 
 	      				while(!(qFound) && j < guessChara.codes.size()){
 	      					questIdx = (guessChara.codes).get(j);
-	      					System.out.println("Looking for a question...");
-
 	      					String question = getQuestion(questIdx);
 	      					while(question.equals("none")){
-	      						
-	      						if(j >= guessChara.codes.size()){
+	      						if(j > guessChara.codes.size()){
 	      							break;
 	      						}else{
-	      							j++;
 		      						questIdx = (guessChara.codes).get(j);
 		      						question = getQuestion(questIdx);
 	      						}
+	      						j++;
+
 	      						
 	      					}
+	      					System.out.println("\n");
 	      					System.out.println(question);
 	      					qFound = true;
-	      					//j++;
+	      					j++;
 	      				}
-	      					System.out.print("Enter answer: ");
-	      					String ans = scan.next();
-	      					if(ans.equals("yes")){
-								yesCodes.add(questIdx);
-							}else if(ans.equals("no")){
-								noCodes.add(questIdx);
+	      					String ans = "";
+	      					do{
+		      					System.out.print("Enter answer: ");
+		      					ans = scan.next();
+		      					if(ans.equals("yes")){
+									yesCodes.add(questIdx);
+									break;
+								}else if(ans.equals("no")){
+									noCodes.add(questIdx);
+									Characters.remove(n);
+									break;
+								}else if(ans.equals("idk")){
+									break;
+		      					}
+		      					else{
+		      						System.out.println("yes, no or idk only");
+		      					}
+		      				}while(!(ans.equals("yes")) || !(ans.equals("no")) || !(ans.equals("idk")));
 
-								Characters.remove(n);
-								break;
-							}else if(ans.equals("idk")){
-
-	      					}else{
-	      						System.out.println("answer again");
-	      						ans = scan.next();
-	      					}
+		      				if(ans.equals("no")){
+		      					break;
+		      				}
       					
       					if(j >= guessChara.codes.size()){
 	                        found = true;
-	                        System.out.println("\n2. YOU ARE THINKING OF: " + guessChara.name);
+	                        System.out.println("\nYOU ARE THINKING OF: " + guessChara.name);
 	                        Characters.clear();
 	                        break;
                     	}
@@ -86,13 +91,11 @@ public class eurecow{
 
       				if (Characters.size() == 1) {
                         found = true;
-                        System.out.println("\n1. YOU ARE THINKING OF: " + guessChara.name);
+                        System.out.println("\nYOU ARE THINKING OF: " + guessChara.name);
                         Characters.clear();
                         break;
                      }
                             
-                    
-
       			}else if(y == false && x == false){
       				Characters.remove(n);
       			}else if(y == true && x == false){
@@ -110,7 +113,6 @@ public class eurecow{
 
 	}
 
-
 	public static Node guessCharacter(){
 		Random rand = new Random();
 		n = rand.nextInt(Characters.size()) + 0;
@@ -118,10 +120,8 @@ public class eurecow{
 	}
 	public static String getQuestion(String qIdx){
 		String quest="";
-		for (int j = 0; j < ListOfQuestions.size(); j++) {
-			// System.out.println("Looking for question with idx " + qIdx);
+		for (int j = 0; j < ListOfQuestions.size()-1; j++) {
 			if(qIdx.equals(ListOfQuestions.get(j).index)){
-				System.out.println("A QUESTION IS FOUND");
 				quest = ListOfQuestions.get(j).q;
 				ListOfQuestions.remove(j);
 				return quest;
